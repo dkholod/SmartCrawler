@@ -1,5 +1,5 @@
 **SmartCrawler**  
-Scan RSS feeds, match then against keywords and push to recipients.
+Scan RSS feeds, match it against keywords and push to recipients.
 
 **Status**  
 Web crawling – currently only hardcoded sources  
