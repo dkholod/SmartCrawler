@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="SmartCrawlerType" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+   <Parameters>
+      <Parameter Name="SlackPublisherActorService_PartitionCount" DefaultValue="10" />
+      <Parameter Name="DouUaActorService_PartitionCount" DefaultValue="10" />
+      <Parameter Name="DouUaActorService_MinReplicaSetSize" DefaultValue="2" />
+      <Parameter Name="DouUaActorService_TargetReplicaSetSize" DefaultValue="3" />
+   </Parameters>
+   <ServiceManifestImport>
+      <ServiceManifestRef ServiceManifestName="Actor.SlackPublisherPkg" ServiceManifestVersion="1.0.0" />
+   </ServiceManifestImport>
+   <ServiceManifestImport>
+      <ServiceManifestRef ServiceManifestName="Actor.DouUaPkg" ServiceManifestVersion="1.0.0" />
+   </ServiceManifestImport>
+   <DefaultServices>
+      <Service Name="SlackPublisherActorService" GeneratedIdRef="3f82a32e-922a-43f0-a9c3-ea3be8eb882b">
+         <StatelessService ServiceTypeName="SlackPublisherActorServiceType">
+            <UniformInt64Partition PartitionCount="[SlackPublisherActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+         </StatelessService>
+      </Service>
+      <Service Name="DouUaActorService" GeneratedIdRef="3d92ba40-1516-4383-912e-6f1e87e4a857">
+         <StatefulService ServiceTypeName="DouUaActorServiceType" TargetReplicaSetSize="[DouUaActorService_TargetReplicaSetSize]" MinReplicaSetSize="[DouUaActorService_MinReplicaSetSize]">
+            <UniformInt64Partition PartitionCount="[DouUaActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+         </StatefulService>
+      </Service>
+   </DefaultServices>
+</ApplicationManifest>
