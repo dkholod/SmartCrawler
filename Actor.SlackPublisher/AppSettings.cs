@@ -9,5 +9,7 @@
         public static string SlackHookName { get; } = ConfigurationManager.AppSettings["SlackHookName"];
 
         public static string SlackHookEmoji { get; } = ConfigurationManager.AppSettings["SlackHookEmoji"];
+
+        public static string KeywordColor { get; } = ConfigurationManager.AppSettings["KeywordColor"];
     }
 }

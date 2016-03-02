@@ -18,11 +18,12 @@
         {
             foreach (var item in items)
             {
-                if (IsMatched(item))
+                var matchInfo = IsMatched(item);
+                if (matchInfo.IsMatched)
                 {
                     const string Template = "<{0}|{1}> \n&gt;{2} ...\n";
                     var text = item.Text.Trim().Substring(0, 200).Replace("\n\n", "\n").Replace("\n", "\n>");
-                    Slack.Post(string.Format(Template, item.Link, item.Title, text));
+                    Slack.Post(string.Format(Template, item.Link, item.Title, text), matchInfo.KeyWords);
 
                     // debugging
                     // WriteToFile(item);
@@ -43,18 +44,18 @@
             }
         }
 
-        private static bool IsMatched(Item item)
+        private static MatchInfo IsMatched(Item item)
         {
             var filters = ConfigurationManager.AppSettings[item.FromFeed];
             if (string.IsNullOrWhiteSpace(filters))
             {
                 // always match if no filters are specified
-                return true;
+                return MatchInfo.SuccessfulEmpty;
             }
 
             var keywords = NormalizeFilters(filters);
-            return keywords
-                .Any(keyword => item.Title.ContainsWord(keyword) || item.Text.ContainsWord(keyword));
+            return new MatchInfo(keywords
+                .Where(keyword => item.Title.ContainsWord(keyword) || item.Text.ContainsWord(keyword)));
         }
 
         private static IEnumerable<string> NormalizeFilters(string filters)
