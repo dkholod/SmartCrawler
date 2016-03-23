@@ -6,7 +6,8 @@
     {
         public static bool ContainsWord(this string source, string match)
         {
-            source = source.Replace("/", " ").Replace("\\", " ").Replace(",", " ");
+            match = match.Replace("#", "sharp");
+            source = source.Replace("/", " ").Replace("\\", " ").Replace(",", " ").Replace("#", "sharp");
             return Regex.IsMatch(source, $".*?\\b{match}\\b.*?", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
         }
     }

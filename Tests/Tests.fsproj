@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Content Include="packages.config" />
+    <Compile Include="SlackPublisherTests.fs" />
     <Compile Include="DouUaActorTests.fs" />
     <Content Include="App.config" />
   </ItemGroup>
@@ -131,6 +132,11 @@
     <ProjectReference Include="..\Actor.Interfaces\Actor.Interfaces.csproj">
       <Name>Actor.Interfaces</Name>
       <Project>{f8d5ac48-aa81-4262-9ad9-bbfd690d94d5}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Actor.SlackPublisher\Actor.SlackPublisher.csproj">
+      <Name>Actor.SlackPublisher</Name>
+      <Project>{f54cfa59-c617-4b18-a9dd-45a42b6b50bb}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
